@@ -18,14 +18,17 @@ class Sprites(pygame.sprite.Sprite):
         self.rect.x += x
         self.rect.y += y
 
+
 class Player(Sprites):
     image_left = load_image('Lol.bmp')
     image_right = pygame.transform.flip(image_left, True, False)
+
     def __init__(self, x, y, name, *group):
         self.name = name
         self.image = Player.image_left
         self.rect = self.image.get_rect()
         self.status = 0
+        self.v = 4
         super().__init__(x, y, group)
 
     def change_status(self, text):
@@ -39,12 +42,15 @@ class Player(Sprites):
 
 class Fountain(Sprites):
     image = load_image("fountain.bmp", 3)
+
     def __init__(self, x, y, *group):
         self.rect = self.image.get_rect()
         super().__init__(x, y, group)
 
+
 class Grass(Sprites):
-    image = load_image("grass.bmp")
+    image = load_image("grass.bmp", 2)
+
     def __init__(self, x, y, *group):
         self.rect = self.image.get_rect()
         super().__init__(x, y, group)
