@@ -17,27 +17,36 @@ class Sprites(pygame.sprite.Sprite):
         super().__init__(group)
         self.rect.x += x
         self.rect.y += y
+        self.mask = self.image.get_masks()
 
 
 class Player(Sprites):
-    image_left = load_image('Lol.bmp')
+    image_left = load_image('player1face — копия.bmp')
     image_right = pygame.transform.flip(image_left, True, False)
+    image_0 = load_image("player1face.bmp")
 
     def __init__(self, x, y, name, *group):
         self.name = name
         self.image = Player.image_left
         self.rect = self.image.get_rect()
-        self.status = 0
-        self.v = 4
+        self.state = 0
+        self.v = 2
         super().__init__(x, y, group)
 
-    def change_status(self, text):
-        if text == "L":
+    def change_state(self, state):
+        """state ==
+        1 - left
+        2 - right
+        0 - Who I'm?"""
+        if state == 1:
             if not (self.image is self.image_left):
                 self.image = self.image_left
-        elif text == "R":
+        elif state == 2:
             if not (self.image is self.image_right):
                 self.image = self.image_right
+        elif state == 0:
+            if not (self.image is self.image_0):
+                self.image = self.image_0
 
 
 class Fountain(Sprites):

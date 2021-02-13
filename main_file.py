@@ -7,7 +7,7 @@ from sprite import *
 
 def main_circle():
     clock = pygame.time.Clock()
-    screen = pygame.display.set_mode((2 ** 10, 2 ** 10))
+    screen = pygame.display.set_mode((2 ** 9, 2 ** 9))
     all_sprite = pygame.sprite.Group()
     lis = []
     lis.append(Player(0, 0, 'kos', all_sprite))
@@ -50,10 +50,13 @@ def main_circle():
             players[0].rect.y += players[0].v
         if pygame.key.get_pressed()[pygame.K_LEFT]:
             players[0].rect.x -= players[0].v
-            players[0].change_status('L')
+            players[0].change_state(1)
         if pygame.key.get_pressed()[pygame.K_RIGHT]:
             players[0].rect.x += players[0].v
-            players[0].change_status('R')
+            players[0].change_state(2)
+        if not (pygame.key.get_pressed()[pygame.K_RIGHT] or pygame.key.get_pressed()[pygame.K_LEFT] or pygame.key.get_pressed()[pygame.K_UP] or pygame.key.get_pressed()[pygame.K_DOWN]):
+            players[0].change_state(0)
+
         all_sprite.draw(screen)
         clock.tick(FPS)
         pygame.display.flip()
